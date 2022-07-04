@@ -4,6 +4,7 @@ namespace Usuario\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use Usuario\Model\UsuarioTable;
 
 class UsuarioController extends AbstractActionController
 {

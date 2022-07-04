@@ -1,6 +1,6 @@
 <?php
 
-namespace Album;
+namespace Usuario;
 
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
