@@ -1,20 +1,31 @@
 <?php
-// module/Usuario/view/usuario/usuario/index.phtml:
 
-$title = 'Usuarios';
+$title = 'Usuários';
 $this->headTitle($title);
+$url   = $this->url('usuario', ['action' => 'index']);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<p>
-    <a href="<?= $this->url('usuario', ['action' => 'add']) ?>">Adicionar novo usuario</a>
-</p>
+<div class="row align-items-center">
+    <div class="col-6">
+        <h1><?= $this->escapeHtml($title) ?></h1>
+        <p>
+            <a href="<?= $this->url('usuario', ['action' => 'add']) ?>">Adicionar novo usuario</a>
+        </p>
+    </div>
+    <div class="col-6">
+        <form name="formulario" action="<?= $url ?>" method="post">
+        <div class="form-group">
+            <input type="text" name="nome" id="nome" placeholder="Buscar usuário" class="col-12"/>
+        </div>
+        </form>
+    </div>
+</div>
 
 <table class="table">
 <tr>
     <th>Nome</th>
     <th>Email</th>
     <th>Senha</th>
-    <th>&nbsp;</th>
+    <th>Ação</th>
 </tr>
 <?php foreach ($usuarios as $usuario) : ?>
     <tr>
@@ -22,9 +33,22 @@ $this->headTitle($title);
         <td><?= $this->escapeHtml($usuario->email) ?></td>
         <td><?= $this->escapeHtml($usuario->senha) ?></td>
         <td>
-            <a href="<?= $this->url('usuario', ['action' => 'edit', 'id' => $usuario->id]) ?>">Edit</a>
-            <a href="<?= $this->url('usuario', ['action' => 'delete', 'id' => $usuario->id]) ?>">Delete</a>
+            <a href="<?= $this->url('usuario', ['action' => 'edit', 'id' => $usuario->id]) ?>">Editar</a>
+            <a href="<?= $this->url('usuario', ['action' => 'delete', 'id' => $usuario->id]) ?>">Deletar</a>
         </td>
     </tr>
 <?php endforeach; ?>
 </table>
+
+<script>
+var nome = document.getElementById("nome");
+nome.addEventListener("keyup", function(){
+
+  function timer(){
+    document.formulario.submit();
+  }
+
+  setTimeout(timer,3000);   
+
+});
+</script>

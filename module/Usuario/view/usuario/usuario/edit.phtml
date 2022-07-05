@@ -1,0 +1,52 @@
+<?php
+
+$title = 'Editar usuario';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+$usuario = $form->get('nome');
+$usuario->setAttribute('class', 'form-control');
+$usuario->setAttribute('placeholder', 'Nome');
+
+$email = $form->get('email');
+$email->setAttribute('class', 'form-control');
+$email->setAttribute('placeholder', 'E-mail');
+
+$senha = $form->get('senha');
+$senha->setAttribute('class', 'form-control');
+$senha->setAttribute('placeholder', 'Senha');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('usuario', [
+    'action' => 'edit',
+    'id'     => $id,
+]));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div class="form-group">
+    <?= $this->formLabel($usuario) ?>
+    <?= $this->formElement($usuario) ?>
+    <?= $this->formElementErrors()->render($usuario, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($email) ?>
+    <?= $this->formElement($email) ?>
+    <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($senha) ?>
+    <?= $this->formElement($senha) ?>
+    <?= $this->formElementErrors()->render($senha, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();
