@@ -4,6 +4,7 @@ namespace Usuario\Model;
 
 use RuntimeException;
 use Laminas\Db\TableGateway\TableGatewayInterface;
+use Usuario\Model\Usuario;
 use Laminas\Db\Sql\Select;
 
 class UsuarioTable
@@ -19,15 +20,14 @@ class UsuarioTable
     {
         return $this->tableGateway->select();
     }
-    
-    public function buscar(array $data){
-        $select = new Select;
-        $select->from("usuario");
-        $select->where(['nome' => $data["nome"] . "%"]);
 
-        return $this->tableGateway->select($select)->toArray();
+    public function buscarUsuario($nome)
+    {
+        $select = new Select();
+        $select = $select->where->like('nome', $nome . "%");
+        return $this->tableGateway->select($select);
     }
-
+    
     public function getUsuario($id)
     {
         $id = (int) $id;

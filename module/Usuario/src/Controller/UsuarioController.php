@@ -19,14 +19,14 @@ class UsuarioController extends AbstractActionController
 
     public function indexAction()
     {
-        if($this->getRequest()->isPost()) {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $nome = $request->getPost('nome');
+            $dados = $this->table->buscarUsuario($nome);
 
-            $nome = $this->getRequest("nome", "");
-            
-            return new ViewModel([
-                'usuarios' => $this->table->buscar(array('nome' => $nome)),
-            ]);
-
+            return [
+                'usuarios' => $dados,
+            ];
         }
 
         return new ViewModel([
@@ -37,7 +37,7 @@ class UsuarioController extends AbstractActionController
     public function addAction()
     {
         $form = new UsuarioForm();
-        $form->get('submit')->setValue('Add');
+        $form->get('submit')->setValue('Adicionar');
 
         $request = $this->getRequest();
 
@@ -74,7 +74,7 @@ class UsuarioController extends AbstractActionController
 
         $form = new UsuarioForm();
         $form->bind($usuario);
-        $form->get('submit')->setAttribute('value', 'Edit');
+        $form->get('submit')->setAttribute('value', 'Editar');
 
         $request = $this->getRequest();
         $viewData = ['id' => $id, 'form' => $form];
